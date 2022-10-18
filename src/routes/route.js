@@ -110,6 +110,31 @@ router.get("/films/:filmID", function (req, res){
 })
 
 
+router.get("/shoes", function (req, res){
+
+    let brand= req.query.brand;
+    let color= req.query.color;
+    let discount= req.query.discount;
+    let size= req.query.size
+
+    console.log(" the brandName of the shoes is ", brand);
+    console.log("the color of the shoes is " , color);
+    console.log("the discount at the shoes is ", discount);
+    console.log("the size of the shoes is " , size)
+    
+
+        
+    res.send("now its done")
+        
+    
+  
+})  
+
+
+
+
+
+
 
 
 
