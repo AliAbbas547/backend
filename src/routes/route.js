@@ -66,6 +66,21 @@ router.post("/players", function(req, res) {
    
     
 })
+router.post("/hello1", function(req,res){
+
+    let t2= req.body.arr;
+    let sum= 0;
+    for (let i=0; i<t2.length; i++){
+        sum = sum + t2[i];
+
+    }
+
+    res.send({sum})
+
+})
+
+
+
 
     
 
