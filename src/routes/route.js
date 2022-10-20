@@ -52,7 +52,7 @@ router.post("/players", function(req, res) {
     let pl= req.body.name
     let t1=0;
     for(let i=0; i<players.length; i++){
-        if(players[i]["name"]==pl){
+        if(players[i].name==pl){
              t1=1;
             }
         }
@@ -66,16 +66,67 @@ router.post("/players", function(req, res) {
    
     
 })
+
+
+
+let persons= [
+    {
+    name: "PK",
+    age: 10,
+    votingStatus: false
+ },
+ {
+    name: "SK",
+    age: 20,
+    votingStatus: false
+ },
+ {
+    name: "AA",
+    age: 70,
+    votingStatus: false
+ },
+ {
+    name: "SC",
+    age: 5,
+    votingStatus: false
+ },
+ {
+    name: "HO",
+    age: 40,
+    votingStatus: false
+ }
+ ]
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 router.post("/hello1", function(req,res){
 
-    let t2= req.body.arr;
-    let sum= 0;
-    for (let i=0; i<t2.length; i++){
-        sum = sum + t2[i];
+    let votingAge= req.query.age
+    let myArr= persons.filter(t2=> t2.age >votingAge)
+    let t2=[];
+    for (let i=0; i<myArr.length; i++){
+        myArr[i].votingStatus="true";
+        t2.push(myArr[i]);
 
     }
+    
+    
 
-    res.send({sum})
+  
+
+    res.send({arr:t2, status: "true"})
 
 })
 
