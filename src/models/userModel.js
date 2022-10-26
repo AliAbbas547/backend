@@ -43,7 +43,27 @@ const bookSchema1= new mongoose.Schema({
 
 },{timestamps:true});
 
-module.exports = mongoose.model('bookshop', bookSchema1) //users
+
+
+const bookSchema2 = new mongoose.Schema( {
+    bookName:{type:String, required:true},
+    authorName: String, 
+    tags: [String],
+    
+    isPublished: Boolean,
+    prices: {
+        indianPrice: String,
+        europePrice: String,
+    },
+    sales: {type: Number, default: 10},
+    year:{type:Number,default:2022},
+    totalPages:Number,
+    stockAvailable:Boolean
+
+}, { timestamps: true });
+
+
+module.exports = mongoose.model('bookshop', bookSchema2) //users
 
 
 
