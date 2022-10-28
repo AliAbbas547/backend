@@ -4,16 +4,18 @@ const router = express.Router();
 const UserController= require("../controllers/userController")
 const BookController= require("../controllers/bookController")
 
-router.get("/test-me", function (req, res) {
-    res.send("My first ever api!")
-})
 
-router.post("/createUser", UserController.createUser  )
 
-router.get("/getUsersData", UserController.getUsersData)
+router.post("/author2", UserController.author2  )
+router.post("/bookish", BookController.bookish  )
 
-router.post("/createBook", BookController.createBook  )
+router.get("/getUsersData", UserController.getUsersData )
 
-router.get("/getBooksData", BookController.getBooksData)
+router.get("/getUsersData1", UserController.getUsersData1 )
+
+router.get("/getUsersData2", UserController.getUsersData2 )
+
+
+module.exports= mongoose.model(User, schem1)
 
 module.exports = router;
