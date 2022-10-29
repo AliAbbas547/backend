@@ -2,6 +2,7 @@ const AuthorModel= require("../models/authorModel")
 
 const createAuthor= async function (req, res) {
     let data = req.body
+    
     let authorCreated = await AuthorModel.create(data)
     res.send({data: authorCreated})
 }
