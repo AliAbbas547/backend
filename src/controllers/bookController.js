@@ -2,37 +2,13 @@
 const mongoose= require("mongoose")
 const authorModel = require("../models/authorModel")
 const bookModel= require("../models/bookModel")
-const t1 = mongoose.Types.ObjectId 
+
 
 const createBook= async function (req, res) {
     
     let book = req.body
     
-    
-    for(let i=0; i<book.length; i++){
-        let data1= book[i].author_id
-        let data2= book[i].publisher_id
-
-    if(!data1){
-        return res.send({message:"author_id is mandatory"})
-    }
-    if(!(t1.isValid(data1))){
-        return res.send({message:"author_id is not valid"})
-
-    }
-
-    if(!data2){
-        return res.send({message:"publisher_id is mandatory"})
-    }
-    if(!(t1.isValid(data2))){
-        return res.send({message:"publisher_id is not valid"})
-
-    }
-}  
-
-
-
-    let bookCreated = await bookModel.create(book)
+ let bookCreated = await bookModel.create(book)
     res.send({data: bookCreated})
 }
 
@@ -40,28 +16,42 @@ const getBooksData= async function (req, res) {
     let books = await bookModel.find()
     res.send({data: books})
 }
-
-const getBooksWithAuthorAndPublisherDetails = async function (req, res) {
-    let specificBook = await bookModel.find({}).populate("author_id").populate("publisher_id")
-    
-    
-    res.send({data: specificBook})
-
-}
-const getBooksUpdate= async function (req, res) {
-    
+const booksUpdatedData= async function (req, res) {
     let books = await bookModel.updateMany({},{$set:{isHardCover:false}})
+    let data1= await bookModel.updateMany({publisher_id:{$in:["635d1e50e6d5a85e1f0512fa","635d1e50e6d5a85e1f0512fd"]}},{isHardCover:true})
+    let data2= await bookModel.find()
+    res.send({data: data2})
+}
+
+const booksNewUpdatedData= async function (req, res) {
+    let books = await authorModel.find({rating:{$gt:3.5}}).select({_id:1})
+    console.log(books)
+    let data1= []
+    for(let i=0; i<books.length; i++){
+        data1.push(books[i]._id)
+    }
+   
+    let books1= await bookModel.updateMany({author_id:{$in:data1}},{$inc:{price:10}})
+    let books2= await bookModel.find()
     
-    let user= await bookModel.updateMany({publisher_id:{$in:["635c083757d447ec79b926d0","635c083757d447ec79b926d2"]}},{$set:{isHardCover:true}})
-    let books1= await bookModel.find()
-    res.send({data: books1})
+     
+
+    
+  
+
+
+    res.send({data:books2})
 }
 
 
 
 
 
-module.exports.getBooksUpdate= getBooksUpdate
+
+
+
+module.exports.booksNewUpdatedData= booksNewUpdatedData
+module.exports.booksUpdatedData= booksUpdatedData
 module.exports.createBook= createBook
 module.exports.getBooksData= getBooksData
-module.exports.getBooksWithAuthorAndPublisherDetails = getBooksWithAuthorAndPublisherDetails
+

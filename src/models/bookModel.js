@@ -18,10 +18,11 @@ const bookSchema = new mongoose.Schema( {
 
     price: Number,
     ratings: Number,
-    isHardCover:String
+    isHardCover:Boolean
+    
 
 
 }, { timestamps: true });
 
 
-module.exports = mongoose.model('MyNewbook', bookSchema)
+module.exports = mongoose.model('MyNewbook1', bookSchema)
