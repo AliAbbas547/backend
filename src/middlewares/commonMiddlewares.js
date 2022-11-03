@@ -1,4 +1,7 @@
 
+const mongoose= require("mongoose")
+const t1 = mongoose.Types.ObjectId
+
 const mid1= function ( req, res, next) {
     req.falana= "hi there. i am adding something new to the req object"
     console.log("Hi I am a middleware named Mid1")
@@ -11,18 +14,35 @@ const mid2= function ( req, res, next) {
 }
 
 const mid3= function ( req, res, next) {
-    console.log("Hi I am a middleware named Mid3")
+    let product_Id="63626fed6d7c275cddff1ce7"
+
+    if(t1.isValid(product_Id)){
+
     next()
+}else{
+    res.send({message:" product_id is wrong"})
+}
 }
 
 const mid4= function ( req, res, next) {
-    console.log("Hi I am a middleware named Mid4")
-    next()
+    let user_id= "63626d6b53c9c77ea88130e5"
+    
+
+    if(t1.isValid(user_id)){
+        next()
+
+    }else{
+        res.send({message:" user_id is wrong"})
+
+    }
+    
+    
 }
 
 const myMiddleware = function(req, res, next){
-    req.month = "November"
-    console.log('I am inside a middleware!')
+    req.headers.isfreeappuser = true
+    console.log(req.headers)
+   
     next()
 }
 
@@ -30,14 +50,16 @@ const myOtherMiddleware = function(req, res, next){
     // Setting an attribute 'wantsJson' in request
     // The header value comparison is done once and
     // the result can be used directly wherever required.
-    let acceptHeaderValue = req.headers["accept"]
+    let freeAppUser = req.headers["isfreeappuser"]
+    console.log(freeAppUser)
+   
 
-    if(acceptHeaderValue == "application/json") {
-        req.wantsJson = true
+    if(freeAppUser) {
+       next()
     } else {
-        req.wantsJson = false
+        res.send("its mandatory")
     }
-    next()
+  
 }
 
 module.exports.mid1= mid1

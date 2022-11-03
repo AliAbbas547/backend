@@ -36,6 +36,13 @@ const getUsersData= async function (req, res) {
 }
 
 const dummyOne = function (req, res) {
+    req.headers.ali= "hello"
+    console.log(req.headers)
+    if(t1){
+        console.log("done")
+    }
+   
+    res.setHeader("message","Hi there!")
     if (req.wantsJson) res.send({msg: "ok"})
     else res.send("ok")
 }
