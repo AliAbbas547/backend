@@ -9,8 +9,14 @@ try{
         res.status(400).send("token is not present")
     }
 
-    let decode= jwt.verify(token, "ali-abbas-backend")
-    if(!decode){
+    let decode= jwt.verify(token, "ali-abbas-backend",function(error, token){
+        if(error){
+            return undefined
+        }else{
+            return token
+        }
+    })
+    if(decode==undefined){
         res.status(401).send("token is not valid")
     }
 
