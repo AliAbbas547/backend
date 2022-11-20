@@ -42,6 +42,11 @@ const createAuthor = async function (req, res) {
            return res.status(400).send({ status: false, msg: "email is not valid" })
         }
 
+        let emaildAlraedyExist= await authorModel.findOne({email:email})
+        if(emaildAlraedyExist != null){
+            res.status(400).send({status:false, msg: " this email is already present"})
+        }
+
         // Password Id Validation
         var validatepassword = function (password) {
             var re = /[A-Z]{1,}[a-z]{3,}[@#$%]{1,}[1-90]{1,}/;

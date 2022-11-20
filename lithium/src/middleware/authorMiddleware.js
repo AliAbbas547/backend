@@ -6,13 +6,13 @@ const authenticate = (req, res, next) => {
 
         if (!token) return res.status(400).send({ status: false, msg: "token must be present" });
 
-        jwt.verify(token, "blogging site", function (err, decode) {
+        jwt.verify(token, "Secret-Key-lithium", function (err, decode) {
           if (err) { return res.status(401).send({ status: false, data: "Authentication failed" }) }
           req.decode = decode;
-          next();
+         return  next();
       })
 
-        if (!decode) return res.status(401).send({ status: false, msg: "token is invalid" });
+      
       
         
       
@@ -21,6 +21,7 @@ const authenticate = (req, res, next) => {
         res.status(500).send({ staus: false, msg: error });
     }
 }
+
 
 const authorize= function ( req, res, next) {
     try{

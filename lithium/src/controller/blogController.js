@@ -29,15 +29,20 @@ const createBlog = async (req, res) => {
 //<----------------This API used for Fetch Blogs of Logged in Author----------->//
 const getBlogsData = async (req, res) => {
     try {
-        let id = req.params.authorId;//
+
+        let query= req.query
+        let id = query.authorId;
+        let tags= query.tags
+        let category= query.category
+        let subcategory= query.subcategory
         if (!id) return res.status(400).send({ status: false, msg: "id is required" })
 
         let isValid = mongoose.Types.ObjectId.isValid(id)
         if (!isValid) return res.status(400).send({ msg: "enter valid objectID" })
 
-        let data = await blogModel.find({ authorId: id })
+        let data = await blogModel.find({ authorId: id ,isDeleted:false, isPublished:true})
         
-        if (Object.keys(data).length == 0) {
+        if (data.length == 0) {
             return res.status(404).send({ status: false, msg: "No data Found" });
         }
        return res.status(200).send({ msg: data })
@@ -77,7 +82,7 @@ const updateBlog = async function (req, res) {
 
         }
 
-        let alert = await blogModel.findOne({ _id: inputId, isDeleted: true })
+       let alert = await blogModel.findOne({ _id: inputId,isDeleted:true })
         if (alert) return res.status(400).send({ msg: "Blog already deleted" })
 
         let blogs = await blogModel.findOneAndUpdate({ _id: inputId },
@@ -141,13 +146,13 @@ const deleteBlogQuery = async (req, res) => {
 
 
 
-        const blog = await blogModel.find({ $and: [queryParams, { isDeleted: true }, { isPublished: false }] });
+        const blog = await blogModel.find({ $and: [queryParams,{isDeleted:true},{isPublished:false}] });
 
 
-        if (Object.keys(blog).length !== 0)
-            return res.status(404).send({ msg: "Document is already Deleted " })
+       if (blog.length !== 0)
+         return res.status(404).send({ msg: "Document is already Deleted " })
 
-        const updatedBlog = await blogModel.updateMany(queryParams,
+        const updatedBlog = await blogModel.findOneAndUpdate(queryParams,
             { $set: { isDeleted: true, isPublished: false, deletedAt: Date.now() } },
             { new: true });
         return res.status(200).send({ status: true, data: updatedBlog })
