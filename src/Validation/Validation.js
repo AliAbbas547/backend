@@ -49,11 +49,7 @@ const isValid = function (value) {
   return true;
 };
 
-//__________________________ Validations :  ObjectId ___________________________________________
 
-const isValidObjectId = function (objectId) {
-  return mongoose.Types.ObjectId.isValid(objectId);
-};
 
 //__________________________ Export : Modules  ___________________________________________
 
@@ -63,7 +59,6 @@ module.exports = {
   isValidName,
   isValidLink,
   isValidMobileNumber,
-  isValidObjectId,
   isValidShortname,
   isValidFullName
 };

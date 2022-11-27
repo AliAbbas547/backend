@@ -4,7 +4,7 @@ const express= require("express")
 const router= express.Router()
 const CollegeController = require("../modelController/CollegeController")
 const internshipController = require("../modelController/internshipController")
-
+ 
 //__________________________ post api : for Test ___________________________________________
 
 router.post("/author", function(req,res){

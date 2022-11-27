@@ -7,6 +7,8 @@ const Validations = require("../Validation/Validation")
 //__________________________ Post Api : CreateCollege  ___________________________________________
 
 const createCollege = async function (req, res) {
+
+ // res.setHeader('Access-Control-Allow-Origin','*')
   try {
     const data = req.body
     if (Object.keys(data) == 0) {
@@ -63,6 +65,7 @@ const createCollege = async function (req, res) {
 //__________________________ Get Api : Getcollegedata  ___________________________________________
 
 const Getcollegedata = async function (req, res) {
+ // res.setHeader('Access-Control-Allow-Origin','*')
   try {
     const collegeName = req.query.collegeName
     if (!collegeName) {
